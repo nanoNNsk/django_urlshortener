@@ -1,16 +1,16 @@
 from django.db import models
+from hashids import Hashids # type: ignore
 
 # Create your models here.
-def generateramdomsrting(min_length):
-    import random
-    import string
-    characters = string.ascii_letters + string.digits
-    return ''.join(random.choice(characters) for i in range(min_length))
+def generatefromid(id):
+    return Hashids(salt='urlshortenerapp',min_length=5).encode(id)
+    
 
 class UrlModel(models.Model):
     longUrl = models.URLField()
     shortUrl = models.CharField(max_length=1000)
 
     def save(self,*args,**kwargs):
-        self.shortUrl = generateramdomsrting(min_length=6)
+        super().save(*args,**kwargs)
+        self.shortUrl = generatefromid(self.id)
         super().save(*args,**kwargs)

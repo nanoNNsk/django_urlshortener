@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'urlshortenerapp',
     'rest_framework',
+    'django_hashids',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
